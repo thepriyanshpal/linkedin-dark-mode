@@ -37,6 +37,44 @@ html.lidm-dark-enabled * {
   text-shadow: none !important;
 }
 
+/*
+ * Native <dialog> elements and Popover-API elements (LinkedIn uses these
+ * for anchored flyouts like the profile/account card, "more" menus, etc.)
+ * render in the browser's "top layer". By spec, CSS filters on ancestors
+ * -- including our whole-page invert above -- do NOT reach into the top
+ * layer, so these flyouts would otherwise show up in their original light
+ * colors instead of matching the rest of the dark UI. Invert them
+ * directly so they're covered too. (Split into separate rules so that a
+ * browser which doesn't recognize one selector, e.g. :popover-open,
+ * doesn't invalidate the others.)
+ */
+html.lidm-dark-enabled dialog {
+  filter: invert(1) hue-rotate(180deg)
+    brightness(var(--lidm-brightness, 1))
+    contrast(var(--lidm-contrast, 1)) !important;
+}
+html.lidm-dark-enabled dialog::backdrop {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+html.lidm-dark-enabled [popover] {
+  filter: invert(1) hue-rotate(180deg)
+    brightness(var(--lidm-brightness, 1))
+    contrast(var(--lidm-contrast, 1)) !important;
+}
+html.lidm-dark-enabled [popover]::backdrop {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+html.lidm-dark-enabled :popover-open {
+  filter: invert(1) hue-rotate(180deg)
+    brightness(var(--lidm-brightness, 1))
+    contrast(var(--lidm-contrast, 1)) !important;
+}
+html.lidm-dark-enabled :modal {
+  filter: invert(1) hue-rotate(180deg)
+    brightness(var(--lidm-brightness, 1))
+    contrast(var(--lidm-contrast, 1)) !important;
+}
+
 html.lidm-dark-enabled {
   color-scheme: dark;
 }
