@@ -29,16 +29,32 @@ html.lidm-dark-enabled {
   background: #fff !important;
 }
 
-/* Cancel the invert for anything that renders real imagery/color. */
-html.lidm-dark-enabled img,
-html.lidm-dark-enabled video,
-html.lidm-dark-enabled picture,
-html.lidm-dark-enabled canvas,
+/*
+ * Cancel the invert for anything that renders real imagery/color -- BUT
+ * only elements NOT flagged by content.js as "large and predominantly
+ * light" (data-lidm-invert-with-page). Large light graphics are usually
+ * document/slide-style attachments (e.g. LinkedIn's PDF-carousel posts,
+ * screenshots, tables) rather than photos; left in their true colors
+ * they'd show up as a jarring bright block on an otherwise dark page, so
+ * those are deliberately left to invert along with everything else
+ * instead (this mirrors how Dark Reader, the most widely used universal
+ * dark-mode extension, treats large light images/backgrounds).
+ *
+ * Things that DO stay true-color also get a slight brightness/contrast
+ * dip -- a plain, un-dimmed photo can look like it's glowing next to a
+ * dark theme, so a small dim keeps it comfortable to look at without
+ * meaningfully changing its colors.
+ */
+html.lidm-dark-enabled img:not([data-lidm-invert-with-page]),
+html.lidm-dark-enabled video:not([data-lidm-invert-with-page]),
+html.lidm-dark-enabled picture:not([data-lidm-invert-with-page]),
+html.lidm-dark-enabled canvas:not([data-lidm-invert-with-page]),
 html.lidm-dark-enabled iframe,
 html.lidm-dark-enabled svg image,
-html.lidm-dark-enabled [style*="background-image"],
-html.lidm-dark-enabled [data-lidm-media] {
-  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg) !important;
+html.lidm-dark-enabled [style*="background-image"]:not([data-lidm-invert-with-page]),
+html.lidm-dark-enabled [data-lidm-media]:not([data-lidm-invert-with-page]) {
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg) brightness(0.92)
+    contrast(0.96) !important;
 }
 
 /* Reduce eye-searing glow from LinkedIn's white cards/spinners. */
