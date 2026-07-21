@@ -10,10 +10,20 @@
  *      elements, so faces/photos/logos keep their real colors.
  *
  * This works on any LinkedIn layout, forever, with zero maintenance.
+ *
+ * NOTE ON --lidm-invert: a full invert(100%) sends every one of
+ * LinkedIn's slightly-different off-white surfaces (cards, feed
+ * background, modals, etc.) all the way to near-pure black, and pure
+ * black text all the way to pure white. That extreme creates hard,
+ * mismatched-looking seams between cards instead of one smooth, cohesive
+ * dark surface. Using a slightly softer ~90% invert compresses those
+ * extremes toward soft dark grays instead, which reads as much smoother
+ * (closer to how hand-designed "dim" themes look) while keeping
+ * hue-rotate(180deg) exact so colors stay correct. Media elements use
+ * the same amount so the double-invert still cancels out cleanly.
  */
-
 html.lidm-dark-enabled {
-  filter: invert(1) hue-rotate(180deg)
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg)
     brightness(var(--lidm-brightness, 1))
     contrast(var(--lidm-contrast, 1)) !important;
   background: #fff !important;
@@ -28,7 +38,7 @@ html.lidm-dark-enabled iframe,
 html.lidm-dark-enabled svg image,
 html.lidm-dark-enabled [style*="background-image"],
 html.lidm-dark-enabled [data-lidm-media] {
-  filter: invert(1) hue-rotate(180deg) !important;
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg) !important;
 }
 
 /* Reduce eye-searing glow from LinkedIn's white cards/spinners. */
@@ -49,28 +59,28 @@ html.lidm-dark-enabled * {
  * doesn't invalidate the others.)
  */
 html.lidm-dark-enabled dialog {
-  filter: invert(1) hue-rotate(180deg)
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg)
     brightness(var(--lidm-brightness, 1))
     contrast(var(--lidm-contrast, 1)) !important;
 }
 html.lidm-dark-enabled dialog::backdrop {
-  filter: invert(1) hue-rotate(180deg) !important;
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg) !important;
 }
 html.lidm-dark-enabled [popover] {
-  filter: invert(1) hue-rotate(180deg)
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg)
     brightness(var(--lidm-brightness, 1))
     contrast(var(--lidm-contrast, 1)) !important;
 }
 html.lidm-dark-enabled [popover]::backdrop {
-  filter: invert(1) hue-rotate(180deg) !important;
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg) !important;
 }
 html.lidm-dark-enabled :popover-open {
-  filter: invert(1) hue-rotate(180deg)
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg)
     brightness(var(--lidm-brightness, 1))
     contrast(var(--lidm-contrast, 1)) !important;
 }
 html.lidm-dark-enabled :modal {
-  filter: invert(1) hue-rotate(180deg)
+  filter: invert(var(--lidm-invert, 0.9)) hue-rotate(180deg)
     brightness(var(--lidm-brightness, 1))
     contrast(var(--lidm-contrast, 1)) !important;
 }
