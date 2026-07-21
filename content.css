@@ -1,0 +1,48 @@
+/*
+ * LinkedIn changes its internal CSS class names constantly (they're
+ * auto-generated/hashed), so instead of overriding specific selectors
+ * (which would break within days), this uses the "smart invert" trick:
+ *
+ *   1. Invert + hue-rotate the WHOLE page -> light backgrounds become
+ *      dark, dark text becomes light.
+ *   2. Invert + hue-rotate everything that is actually a photo/video/
+ *      icon a SECOND time, which cancels step 1 out for just those
+ *      elements, so faces/photos/logos keep their real colors.
+ *
+ * This works on any LinkedIn layout, forever, with zero maintenance.
+ */
+
+html.lidm-dark-enabled {
+  filter: invert(1) hue-rotate(180deg)
+    brightness(var(--lidm-brightness, 1))
+    contrast(var(--lidm-contrast, 1)) !important;
+  background: #fff !important;
+}
+
+/* Cancel the invert for anything that renders real imagery/color. */
+html.lidm-dark-enabled img,
+html.lidm-dark-enabled video,
+html.lidm-dark-enabled picture,
+html.lidm-dark-enabled canvas,
+html.lidm-dark-enabled iframe,
+html.lidm-dark-enabled svg image,
+html.lidm-dark-enabled [style*="background-image"],
+html.lidm-dark-enabled [data-lidm-media] {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+
+/* Reduce eye-searing glow from LinkedIn's white cards/spinners. */
+html.lidm-dark-enabled * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html.lidm-dark-enabled {
+  color-scheme: dark;
+}
+
+/* Smooth the transition when toggling on/off instead of a hard flash. */
+html.lidm-dark-transition,
+html.lidm-dark-transition * {
+  transition: filter 0.15s ease-in-out !important;
+}
