@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "LinkedIn Dark Mode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Applies a comfortable dark theme to LinkedIn, with a popup to toggle it on/off and adjust brightness/contrast.",
   "permissions": ["storage"],
   "host_permissions": ["https://*.linkedin.com/*"],
