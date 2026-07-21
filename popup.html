@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LinkedIn Dark Mode</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <span class="logo-dot"></span>
+    <h1>LinkedIn Dark Mode</h1>
+  </header>
+
+  <section class="row toggle-row">
+    <label class="toggle-label" for="toggle">Enabled on LinkedIn</label>
+    <label class="switch">
+      <input type="checkbox" id="toggle" />
+      <span class="slider"></span>
+    </label>
+  </section>
+
+  <section class="row slider-row">
+    <div class="slider-label">
+      <span>Brightness</span>
+      <span id="brightnessValue">100%</span>
+    </div>
+    <input type="range" id="brightness" min="60" max="140" step="5" />
+  </section>
+
+  <section class="row slider-row">
+    <div class="slider-label">
+      <span>Contrast</span>
+      <span id="contrastValue">100%</span>
+    </div>
+    <input type="range" id="contrast" min="60" max="140" step="5" />
+  </section>
+
+  <button id="reset">Reset to defaults</button>
+
+  <p class="hint">Reload any open LinkedIn tabs after installing for the theme to fully apply.</p>
+
+  <script src="popup.js"></script>
+</body>
+</html>
